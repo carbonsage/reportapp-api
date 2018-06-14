@@ -20,12 +20,19 @@ module.exports = {
   models: {
     connection: 'PostgresqlServer'
   },
+  connections: {
+    PostgresqlServer: {
+      adapter: 'sails-postgresql',
+      url: process.env.DATABASE_URL,
+      ssl: true
+    }
+  },
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: 1337,
+  port: 80,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *

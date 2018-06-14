@@ -24,7 +24,22 @@ module.exports = {
 		  	return res.negotiate(err); 
 		  }
 		  if (post) {
-		  	return res.json(post);
+		  	Post
+			.findOne({
+				id: post.id,
+			})
+			.populate('author')
+			.exec(function (err, post){
+			  if (err) { 
+			  	return res.negotiate(err); 
+			  }
+			  if (!post) {
+			  	return res.negotiate(); 
+			  }
+			  if (post) {
+			  	return res.json(post);
+			  }
+			});
 		  }
 		});
 	},
