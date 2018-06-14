@@ -31,13 +31,6 @@ module.exports = {
     connection: 'ProdMongoServer',
     schema: true
   },
-  connections: {
-    ProdMongoServer: {
-      adapter: 'sails-mongo',
-      url: process.env.MONGODB_URI,
-      ssl: true
-    }
-  },
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *

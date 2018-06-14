@@ -81,6 +81,11 @@ module.exports.connections = {
     ssl: true
   },
 
+  ProdMongoServer: {
+    adapter: 'sails-mongo',
+    url: process.env.MONGODB_URI
+  },
+
 
   /***************************************************************************
   *                                                                          *
