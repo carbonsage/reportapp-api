@@ -17,13 +17,24 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
+  // models: {
+  //   connection: 'PostgresqlServer'
+  // },
+  // connections: {
+  //   PostgresqlServer: {
+  //     adapter: 'sails-postgresql',
+  //     url: process.env.DATABASE_URL,
+  //     ssl: true
+  //   }
+  // },
   models: {
-    connection: 'PostgresqlServer'
+    connection: 'ProdMongoServer',
+    schema: true
   },
   connections: {
-    PostgresqlServer: {
-      adapter: 'sails-postgresql',
-      url: process.env.DATABASE_URL,
+    ProdMongoServer: {
+      adapter: 'sails-mongo',
+      url: process.env.MONGODB_URI,
       ssl: true
     }
   },
