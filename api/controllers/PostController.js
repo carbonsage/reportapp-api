@@ -67,15 +67,15 @@ module.exports = {
 		.sort("createdAt DESC")
 		.limit(50)
 		.populate('author')
-		.exec(function (err, post){
+		.exec(function (err, posts){
 		  if (err) { 
 		  	return res.negotiate(err); 
 		  }
-		  if (!post) {
+		  if (!posts) {
 		  	return res.negotiate(); 
 		  }
-		  if (post) {
-		  	return res.json(post);
+		  if (posts) {
+		  	return res.json(posts);
 		  }
 		});
 	},
