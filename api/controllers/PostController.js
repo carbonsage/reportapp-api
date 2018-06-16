@@ -8,7 +8,7 @@
 module.exports = {
 	createPost: function(req, res) {
 		GeolocationService.getCoordLoc(req.param('lat'), req.param('long')).then(function(loc) {
-			S3Service.uploadToS3(req.param('img'))
+			S3Service.uploadToS3(req.param('img'), `${req.param('title')}_${new Date().valueOf()}`)
 			.then(function(url) {
 				Post.create({
 					upvotes: 0,
