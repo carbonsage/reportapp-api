@@ -9,6 +9,8 @@ module.exports = {
 			  Bucket: 'reportapp-bucket',
 			  Key: title,
 			  Body: bs4Str,
+			  ContentEncoding: 'base64',
+			  ContentType:  'image/jpeg',
 			}
 			s3.upload(params, (err, data) => {
 			  if (err) {
