@@ -14,8 +14,18 @@ module.exports = {
   		size: 250
   	},
   	image: {
-  		type: 'string'
+  		type: 'string',
+      defaultsTo: 'https://4.bp.blogspot.com/-i_6lnKy8NU4/WCRylC1DQrI/AAAAAAAANnk/kTX9v5v32XMHuJ70c8Ms_e3cZo5T18gywCLcB/s1600/default-thumbnail.png'
   	},
+    long: {
+      type: 'float',
+    },
+    lat: {
+      type: 'float',
+    },
+    loc: {
+      type: 'string',
+    },
   	body: {
   		type: 'text',
   		required: true

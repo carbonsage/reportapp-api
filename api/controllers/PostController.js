@@ -7,41 +7,46 @@
 
 module.exports = {
 	createPost: function(req, res) {
-		Post
-		.create({
-			upvotes: 0,
-			downvotes: 0,
-			title: req.param('title'),
-			body: req.param('body'),
-			author: req.param('author'),
-			time:  new Date().toUTCString().replace("GMT", "").trim()
-		})
-		.exec(function (err, post){
-		  if (err) { 
-		  	return res.negotiate(err); 
-		  }
-		  if (!post) {
-		  	return res.negotiate(err); 
-		  }
-		  if (post) {
-		  	Post
-			.findOne({
-				id: post.id,
+		// S3Service.uploadToS3(img);
+		GeolocationService.getCoordLoc(req.param('lat'), req.param('long')).then(function(loc) {
+			Post.create({
+				upvotes: 0,
+				downvotes: 0,
+				title: req.param('title'),
+				body: req.param('body'),
+				author: req.param('author'),
+				time:  new Date().toUTCString().replace("GMT", "").trim(),
+				loc: loc,
+				lat: req.param('lat') || 0,
+				long: req.param('long') || 0
 			})
-			.populate('author')
 			.exec(function (err, post){
 			  if (err) { 
 			  	return res.negotiate(err); 
 			  }
 			  if (!post) {
-			  	return res.negotiate(); 
+			  	return res.negotiate(err); 
 			  }
 			  if (post) {
-			  	return res.json(post);
+			  	Post
+				.findOne({
+					id: post.id,
+				})
+				.populate('author')
+				.exec(function (err, post){
+				  if (err) { 
+				  	return res.negotiate(err); 
+				  }
+				  if (!post) {
+				  	return res.negotiate(); 
+				  }
+				  if (post) {
+				  	return res.json(post);
+				  }
+				});
 			  }
 			});
-		  }
-		});
+		})
 	},
 	getPost: function(req, res) {
 		Post
