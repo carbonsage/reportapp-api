@@ -50,6 +50,7 @@ module.exports = {
 			// 	  }
 			// 	});
 			// }).catch(function(err) {
+				console.log(req.param('anonymous'));
 				Post.create({
 					upvotes: 0,
 					downvotes: 0,
@@ -60,7 +61,8 @@ module.exports = {
 					loc: loc,
 					lat: req.param('lat') || 0,
 					long: req.param('long') || 0,
-					image: req.param('img') || img
+					image: req.param('img') || img,
+					anonymous: req.param('anonymous')
 				})
 				.exec(function (err, post){
 				  if (err) { 
