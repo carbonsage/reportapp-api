@@ -40,6 +40,10 @@ module.exports = {
   	comments: {
   		collection: 'comments',
   		via: 'author'
+  	},
+  	email: {
+  		type: 'string',
+  		email: true
   	}
   }
 };
