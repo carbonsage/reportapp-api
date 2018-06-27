@@ -65,7 +65,8 @@ module.exports = {
 					image: req.param('img') || img,
 					anonymous: req.param('anonymous'),
 					from_twitter: req.param('from_twitter') || false,
-					urls: req.param('urls') 
+					urls: req.param('urls'),
+					featured: req.param('featured') || false
 				})
 				.exec(function (err, post){
 				  if (err) { 

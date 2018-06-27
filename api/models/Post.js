@@ -14,7 +14,7 @@ module.exports = {
   		size: 250
   	},
     from_twitter: {
-      type: boolean,
+      type: 'boolean',
     },
     urls: {
       type: 'array',
