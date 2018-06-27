@@ -13,6 +13,13 @@ module.exports = {
   		required: true,
   		size: 250
   	},
+    from_twitter: {
+      type: boolean,
+    },
+    urls: {
+      type: 'array',
+      max: 5,
+    },
   	image: {
   		type: 'string',
       defaultsTo: 'https://4.bp.blogspot.com/-i_6lnKy8NU4/WCRylC1DQrI/AAAAAAAANnk/kTX9v5v32XMHuJ70c8Ms_e3cZo5T18gywCLcB/s1600/default-thumbnail.png'

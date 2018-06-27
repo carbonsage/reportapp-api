@@ -63,7 +63,9 @@ module.exports = {
 					lat: req.param('lat') || 0,
 					long: req.param('long') || 0,
 					image: req.param('img') || img,
-					anonymous: req.param('anonymous')
+					anonymous: req.param('anonymous'),
+					from_twitter: req.param('from_twitter') || false,
+					urls: req.param('urls') 
 				})
 				.exec(function (err, post){
 				  if (err) { 
