@@ -1,29 +1,42 @@
-var AWS = require('aws-sdk')
-AWS.config.update({ accessKeyId: 'AKIAIBWHV3PS557VKFOA', secretAccessKey: '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' });
-var s3 = new AWS.S3()
+var cloudinary = require('cloudinary');
+
+cloudinary.config({ 
+  cloud_name: 'jesse-dirisu', 
+  api_key: '872994525413396', 
+  api_secret: 'ugk7i8bjN4CLIkxJXczmHDOqhA8' 
+})
 
 module.exports = {
-	uploadToS3: function(bs4Str, title) {
-		// var buf = new Buffer(bs4Str, 'base64');
-		console.log(buf);
-		var params = {
-			Bucket: 'reportapp-bucket',
-		  	Key: `${title}.jpeg`,
-		  	Body: bs4Str,
-		  	// ContentEncoding: 'base64',
-		  	// ContentType:  'image/jpeg',
-		  	ACL: 'public-read'
-		}
+	upload: function(bs4Str, title) {
+		// console.log(new Buffer('R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=', 'base64').toString('base64'));
 		return new Promise(function(res, rej) {
-			s3.upload(params, (err, data) => {
-			  if (err) {
-			  	rej(err);
-			  	console.log(err);
-			  } else {
-			  	console.dir(data.Location);
-			  	res(data.Location);
-			  }
-			});
+			if (!bs4Str) {
+				res('');
+			} else {
+				cloudinary.v2.uploader.upload('data:image/jpeg;base64,'+bs4Str, {public_id: title, format: 'jpg'}, function(err, result) {
+					if (err) {
+						cloudinary.v2.uploader.upload('data:image/png;base64,'+bs4Str, {public_id: title, format: 'jpg'}, function(err, result) {
+							if (err) {
+								cloudinary.v2.uploader.upload('data:image/gif;base64,'+bs4Str, {public_id: title, format: 'jpg'}, function(err, result) {
+									if (err) {
+										rej(err)
+									}
+									if (result) {
+										res(result.url)
+									}
+								})
+							}
+							if (result) {
+								res(result.url)
+							}
+						})
+					}
+					if (result) {
+						console.log(result.url);
+						res(result.url)
+					}
+				})
+			}
 		})
 	}
 }

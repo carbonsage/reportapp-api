@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "aws-sdk": "^2.259.1",
+    "cloudinary": "^1.11.0",
     "include-all": "^1.0.0",
     "opencage-api-client": "^0.1.0",
     "rc": "1.0.1",
