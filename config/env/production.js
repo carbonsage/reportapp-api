@@ -16,17 +16,6 @@ module.exports = {
    * Set the default database connection for models in the production        *
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
-
-  // models: {
-  //   connection: 'PostgresqlServer'
-  // },
-  // connections: {
-  //   PostgresqlServer: {
-  //     adapter: 'sails-postgresql',
-  //     url: process.env.DATABASE_URL,
-  //     ssl: true
-  //   }
-  // },
   models: {
     connection: 'ProdMongoServer',
     schema: true
