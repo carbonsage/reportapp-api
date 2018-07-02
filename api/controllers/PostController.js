@@ -162,6 +162,45 @@ module.exports = {
 		  }
 		});
 	},
+	getTrendingPosts: function(req, res) {
+		Post
+		.find()
+		.where({upvotes: {'>': 0}})
+		.sort("upvotes DESC")
+		.sort("createdAt DESC")
+		.limit(10)
+		.populate('author')
+		.exec(function (err, posts){
+		  if (err) { 
+		  	return res.negotiate(err); 
+		  }
+		  if (!posts) {
+		  	return res.negotiate(); 
+		  }
+		  if (posts) {
+		  	return res.json(posts);
+		  }
+		});
+	},
+	getFeaturedPosts: function(req, res) {
+		Post
+		.find()
+		.where({featured: true})
+		.sort("createdAt DESC")
+		.limit(5)
+		.populate('author')
+		.exec(function (err, posts){
+		  if (err) { 
+		  	return res.negotiate(err); 
+		  }
+		  if (!posts) {
+		  	return res.negotiate(); 
+		  }
+		  if (posts) {
+		  	return res.json(posts);
+		  }
+		});
+	},
 	upVote: function(req, res) {
 		Post
 		.findOne({
