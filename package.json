@@ -6,6 +6,8 @@
   "keywords": [],
   "dependencies": {
     "aws-sdk": "^2.259.1",
+    "base64-arraybuffer-converter": "^1.0.3",
+    "blob-util": "^2.0.2",
     "cloudinary": "^1.11.0",
     "include-all": "^1.0.0",
     "opencage-api-client": "^0.1.0",
@@ -13,7 +15,9 @@
     "sails": "~0.12.14",
     "sails-disk": "~0.10.9",
     "sails-mongo": "^0.12.2",
-    "sails-postgresql": "^0.12.2"
+    "sails-postgresql": "^0.12.2",
+    "skipper": "^0.8.5",
+    "skipper-disk": "^0.5.11"
   },
   "scripts": {
     "debug": "node debug app.js",

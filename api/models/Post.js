@@ -61,6 +61,9 @@ module.exports = {
   	downvotes: {
   		type: 'integer',
   	},
+    hasVideo: {
+      type: 'boolean'
+    }
   }
 };
 

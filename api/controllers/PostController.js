@@ -15,9 +15,9 @@ module.exports = {
 		}
 	},
 	createPost: function(req, res) {
-		console.log(req.param('img'));
+		var Service =  req.param('isVideo') ? S3Service.uploadVideo(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`) : S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`); 
 		GeolocationService.getCoordLoc(req.param('lat'), req.param('long')).then(function(loc) {
-			S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`, req.param('isVideo'))
+			Service
 			.then(function(url) {
 				Post.create({
 					upvotes: 0,
@@ -33,35 +33,38 @@ module.exports = {
 					anonymous: req.param('anonymous'),
 					from_twitter: req.param('from_twitter') || false,
 					urls: req.param('urls'),
-					featured: req.param('featured') || false
+					featured: req.param('featured') || false,
+					hasVideo: req.param('isVideo') && url,
 				})
 				.exec(function (err, post){
 				  if (err) { 
 				  	return res.negotiate(err); 
 				  }
 				  if (!post) {
-				  	return res.negotiate(err); 
+				  	return res.notFound(); 
 				  }
 				  if (post) {
-				  	Post
-					.findOne({
-						id: post.id,
-					})
-					.populate('author')
-					.exec(function (err, post){
-					  if (err) { 
-					  	return res.negotiate(err); 
-					  }
-					  if (!post) {
-					  	return res.negotiate(); 
-					  }
-					  if (post) {
-					  	return res.json(post);
-					  }
-					});
+				 //  	Post
+					// .findOne({
+					// 	id: post.id,
+					// })
+					// .populate('author')
+					// .exec(function (err, post){
+					//   if (err) { 
+					//   	return res.negotiate(err); 
+					//   }
+					//   if (!post) {
+					//   	return res.negotiate(); 
+					//   }
+					//   if (post) {
+					//   	return res.json(post);
+					//   }
+					// });
+					return res.json(post)
 				  }
 				});
 			}).catch(function(err) {
+				console.log(err);
 				Post.create({
 					upvotes: 0,
 					downvotes: 0,
@@ -72,37 +75,39 @@ module.exports = {
 					loc: loc,
 					lat: req.param('lat') || 0,
 					long: req.param('long') || 0,
-					image: req.param('img') || 'https://res.cloudinary.com/jesse-dirisu/image/upload/v1530355817/Logo.jpg',
+					image: 'https://res.cloudinary.com/jesse-dirisu/image/upload/v1530355817/Logo.jpg',
 					anonymous: req.param('anonymous'),
 					from_twitter: req.param('from_twitter') || false,
 					urls: req.param('urls'),
-					featured: req.param('featured') || false
+					featured: req.param('featured') || false,
+					hasVideo: false
 				})
 				.exec(function (err, post){
 				  if (err) { 
 				  	return res.negotiate(err); 
 				  }
 				  if (!post) {
-				  	return res.negotiate(err); 
+				  	return res.notFound(); 
 				  }
 				  if (post) {
-				  	Post
-					.findOne({
-						id: post.id,
-					})
-					.populate('author')
-					.exec(function (err, post){
-					  if (err) { 
-					  	return res.negotiate(err); 
-					  }
-					  if (!post) {
-					  	return res.negotiate(); 
-					  }
-					  if (post) {
-					  	Post.publishUpdate('postadded', post);
-					  	return res.json(post);
-					  }
-					});
+				 //  	Post
+					// .findOne({
+					// 	id: post.id,
+					// })
+					// .populate('author')
+					// .exec(function (err, post){
+					//   if (err) { 
+					//   	return res.negotiate(err); 
+					//   }
+					//   if (!post) {
+					//   	return res.negotiate(); 
+					//   }
+					//   if (post) {
+					//   	Post.publishUpdate('postadded', post);
+					//   	return res.json(post);
+					//   }
+					// });
+					return res.json(post);
 				  }
 				});
 			})
