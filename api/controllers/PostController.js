@@ -15,8 +15,9 @@ module.exports = {
 		}
 	},
 	createPost: function(req, res) {
+		console.log(req.param('img'));
 		GeolocationService.getCoordLoc(req.param('lat'), req.param('long')).then(function(loc) {
-			S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`)
+			S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`, req.param('isVideo'))
 			.then(function(url) {
 				Post.create({
 					upvotes: 0,
