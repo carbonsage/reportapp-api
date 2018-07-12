@@ -77,8 +77,13 @@ module.exports.http = {
     // bodyParser: require('skipper')({strict: true})
 
     bodyParser: require('skipper')({
-      strict: true,
-      limit: 524288000000
+      strict: false,
+      limit: 524288000000,
+      onBodyParserError: function(req, res, next) {
+        console.dir(req);
+        console.dir(res);
+        next();
+      }
     })
 
   },
