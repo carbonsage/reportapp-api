@@ -34,7 +34,7 @@ module.exports = {
 					from_twitter: req.param('from_twitter') || false,
 					urls: req.param('urls'),
 					featured: req.param('featured') || false,
-					hasVideo: req.param('isVideo') && url,
+					hasVideo: req.param('isVideo'),
 				})
 				.exec(function (err, post){
 				  if (err) { 
@@ -44,23 +44,22 @@ module.exports = {
 				  	return res.notFound(); 
 				  }
 				  if (post) {
-				 //  	Post
-					// .findOne({
-					// 	id: post.id,
-					// })
-					// .populate('author')
-					// .exec(function (err, post){
-					//   if (err) { 
-					//   	return res.negotiate(err); 
-					//   }
-					//   if (!post) {
-					//   	return res.negotiate(); 
-					//   }
-					//   if (post) {
-					//   	return res.json(post);
-					//   }
-					// });
-					return res.json(post)
+				  	Post
+					.findOne({
+						id: post.id,
+					})
+					.populate('author')
+					.exec(function (err, post){
+					  if (err) { 
+					  	return res.negotiate(err); 
+					  }
+					  if (!post) {
+					  	return res.negotiate(); 
+					  }
+					  if (post) {
+					  	return res.json(post);
+					  }
+					});
 				  }
 				});
 			}).catch(function(err) {
@@ -90,24 +89,23 @@ module.exports = {
 				  	return res.notFound(); 
 				  }
 				  if (post) {
-				 //  	Post
-					// .findOne({
-					// 	id: post.id,
-					// })
-					// .populate('author')
-					// .exec(function (err, post){
-					//   if (err) { 
-					//   	return res.negotiate(err); 
-					//   }
-					//   if (!post) {
-					//   	return res.negotiate(); 
-					//   }
-					//   if (post) {
-					//   	Post.publishUpdate('postadded', post);
-					//   	return res.json(post);
-					//   }
-					// });
-					return res.json(post);
+				  	Post
+					.findOne({
+						id: post.id,
+					})
+					.populate('author')
+					.exec(function (err, post){
+					  if (err) { 
+					  	return res.negotiate(err); 
+					  }
+					  if (!post) {
+					  	return res.negotiate(); 
+					  }
+					  if (post) {
+					  	Post.publishUpdate('postadded', post);
+					  	return res.json(post);
+					  }
+					});
 				  }
 				});
 			})

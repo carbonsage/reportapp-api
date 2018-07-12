@@ -13,6 +13,7 @@ urlr = /^(http(s)?)?(:\/\/)?(www\.)?[\d\w]+\.[\d\w\D\W]+/
 
 module.exports = {
 	upload: function(bs4Str, title) {
+		title = title.split(" ").join('_');
 		console.log('uploading picture');
 		return new Promise(function(res, rej) {
 			if (!bs4Str) {
