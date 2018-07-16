@@ -88,6 +88,30 @@ module.exports = {
 			)
 		})
 
+	},
+	uploadAudio: function(bs4Str, title) {
+		console.log('uploading audio');
+		return new Promise((res, rej) => {
+			if (!bs4Str) {
+				console.log('empty data');
+				res('');
+			}
+			cloudinary
+			.v2
+			.uploader
+			.upload('audio/3gpp;base64,'+bs4Str,
+				{timeout:12000000, public_id: title, format: 'mp3', resource_type: "video"},
+				function(err, result) {
+				 	if (err) {
+				 		rej('');
+				 	} else {
+				 		console.dir(result)
+				 		res(result.url)
+				 	}
+				}
+			)
+		})
+
 	}
 }
 

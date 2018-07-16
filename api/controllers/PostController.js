@@ -15,7 +15,20 @@ module.exports = {
 		}
 	},
 	createPost: function(req, res) {
-		var Service =  req.param('isVideo') ? S3Service.uploadVideo(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`) : S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`); 
+		var Service;
+		var isVideo;
+		if (req.param('isVideo') === true) {
+			isVideo = true;
+			Service =  S3Service.uploadVideo(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`);
+		}
+		if (req.param('isVideo') === false) {
+			isVideo = false;
+			Service =  S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`);
+		}
+		if (req.param('isVideo') === 'audio') {
+			isVideo = true;
+			Service =  S3Service.uploadAudio(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`);
+		}
 		GeolocationService.getCoordLoc(req.param('lat'), req.param('long')).then(function(loc) {
 			Service
 			.then(function(url) {
@@ -34,7 +47,7 @@ module.exports = {
 					from_twitter: req.param('from_twitter') || false,
 					urls: req.param('urls'),
 					featured: req.param('featured') || false,
-					hasVideo: req.param('isVideo'),
+					hasVideo: req.param('isVideo') ,
 				})
 				.exec(function (err, post){
 				  if (err) { 
