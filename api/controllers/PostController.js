@@ -47,7 +47,7 @@ module.exports = {
 					from_twitter: req.param('from_twitter') || false,
 					urls: req.param('urls'),
 					featured: req.param('featured') || false,
-					hasVideo: req.param('isVideo') ,
+					hasVideo: isVideo,
 				})
 				.exec(function (err, post){
 				  if (err) { 

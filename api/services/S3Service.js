@@ -90,7 +90,6 @@ module.exports = {
 
 	},
 	uploadAudio: function(bs4Str, title) {
-		console.log(bs4Str);
 		console.log('uploading audio');
 		return new Promise((res, rej) => {
 			if (!bs4Str) {
