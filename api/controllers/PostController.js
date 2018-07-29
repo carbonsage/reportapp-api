@@ -70,6 +70,27 @@ module.exports = {
 					  	return res.negotiate(); 
 					  }
 					  if (post) {
+					  	Post.count({ author: req.param('author') })
+					  	.exec(function (err, count) {
+					  	  if (err) {
+					  	    return;
+					  	  }
+					  	  if (!count) {
+					  	    return;
+					  	  }
+					  	  if (count) {
+					  	  	User.update(req.param('author'), {postCount: count++})
+					  	  	.exec(function(err, updated){
+					  	  	  if (err) {
+					  	  	  	console.log(err);
+					  	  	    return;
+					  	  	  }
+					  	  	  if (updated) {
+					  	  	  	console.dir(updated)
+					  	  	  }
+					  	  	});
+					  	  }
+					  	});
 					  	return res.json(post);
 					  }
 					});
@@ -115,6 +136,27 @@ module.exports = {
 					  	return res.negotiate(); 
 					  }
 					  if (post) {
+					  	Post.count({ author: req.param('author') })
+					  	.exec(function (err, count) {
+					  	  if (err) {
+					  	    return;
+					  	  }
+					  	  if (!count) {
+					  	    return;
+					  	  }
+					  	  if (count) {
+					  	  	User.update(req.param('author'), {postCount: count++})
+					  	  	.exec(function(err, updated){
+					  	  	  if (err) {
+					  	  	  	console.log(err);
+					  	  	    return;
+					  	  	  }
+					  	  	  if (updated) {
+					  	  	  	console.dir(updated)
+					  	  	  }
+					  	  	});
+					  	  }
+					  	});
 					  	Post.publishUpdate('postadded', post);
 					  	return res.json(post);
 					  }

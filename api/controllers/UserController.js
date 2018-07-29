@@ -10,7 +10,8 @@ module.exports = {
 		User
 		.create({
 			name: req.param('name'),
-			username: req.param('username')
+			username: req.param('username'),
+			postCount: 0
 		})
 		.exec(function (err, user){
 		  if (err) { 
@@ -59,6 +60,24 @@ module.exports = {
 		  }
 		  if (user) {
 		  	return res.json(user);
+		  }
+		});
+	},
+	getTopUsers: function(req, res) {
+		User
+		.find()
+		.where({'name': {'!': 'Anonymous User'}})
+		.sort('postCount DESC')
+		.limit(10)
+		.exec(function (err, users){
+		  if (err) { 
+		  	return res.negotiate(err); 
+		  }
+		  if (!users) {
+		  	return res.negotiate('not found'); 
+		  }
+		  if (users) {
+		  	return res.json(users);
 		  }
 		});
 	},

@@ -37,6 +37,11 @@ module.exports = {
   		collection: 'post',
   		via: 'author'
   	},
+    postCount: {
+      type: 'integer',
+      defaultsTo: 0,
+      required: false
+    },
   	comments: {
   		collection: 'comments',
   		via: 'author'
