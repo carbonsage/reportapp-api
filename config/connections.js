@@ -80,7 +80,9 @@ module.exports.connections = {
 
   ProdMongoServer: {
     adapter: 'sails-mongo',
-    url: process.env.MONGODB_URI
+    host: '51.136.31.189',
+    port: 27017,
+    database: 'upright_db'
   },
 
 
