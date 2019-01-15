@@ -21,7 +21,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "NODE_ENV=production node app.js --port=80"
+    "start": "NODE_ENV=production node app.js"
   },
   "engines": {
     "node": "8.11.1",
