@@ -83,7 +83,7 @@ module.exports.connections = {
     host: '51.136.31.189',
     port: 27017,
     database: 'upright_db',
-    user:'dbadmin',
+    user:'uprightapi',
     password:'Uprightmongo1'
   },
 
