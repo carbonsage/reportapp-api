@@ -82,7 +82,9 @@ module.exports.connections = {
     adapter: 'sails-mongo',
     host: '51.136.31.189',
     port: 27017,
-    database: 'upright_db'
+    database: 'upright_db',
+    user:'dbadmin',
+    password:'Uprightmongo1'
   },
 
 
