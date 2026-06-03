@@ -66,7 +66,7 @@ module.exports = {
 	getTopUsers: function(req, res) {
 		User
 		.find()
-		.where({'name': {'!': 'Anonymous User'}})
+		.where({'name': {'!': 'Anonymous User'}, 'postCount': {'>': 0}})
 		.sort('postCount DESC')
 		.limit(10)
 		.exec(function (err, users){
@@ -119,12 +119,6 @@ module.exports = {
 		  	  }
 
 		  	  if (!count) {
-		  	  	console.dir({
-		  	  		comments: count,
-		  	  		upvotes: upvotes,
-		  	  		downvotes: downvotes,
-		  	  		posts: postsLen
-		  	  	})
 		  	  	return res.json({
 		  	  		comments: 0,
 		  	  		upvotes: upvotes,

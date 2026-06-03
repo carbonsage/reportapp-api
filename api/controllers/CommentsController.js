@@ -21,7 +21,7 @@ module.exports = {
 		  	return res.negotiate(err); 
 		  }
 		  if (!comment) {
-		  	return res.negotiate(); 
+		  	return res.badRequest(); 
 		  }
 		  if (comment) {
 		  	Comments

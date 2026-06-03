@@ -9,7 +9,7 @@ cloudinary.config({
   api_secret: 'ugk7i8bjN4CLIkxJXczmHDOqhA8' 
 })
 
-urlr = /^(http(s)?)?(:\/\/)?(www\.)?[\d\w]+\.[\d\w\D\W]+/
+urlr = /^(http(s)?)?(:\/\/)?(www\.)?[\d\w]+\.[\d\w\D\W]+/;
 
 module.exports = {
 	upload: function(bs4Str, title) {

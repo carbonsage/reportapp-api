@@ -15,21 +15,13 @@ module.exports = {
 		}
 	},
 	createPost: function(req, res) {
-		var Service;
-		var isVideo;
-		if (req.param('isVideo') === true) {
-			isVideo = true;
-			Service =  S3Service.uploadVideo(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`);
-		}
-		if (req.param('isVideo') === false) {
-			isVideo = false;
-			Service =  S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`);
-		}
-		if (req.param('isVideo') === 'audio') {
-			isVideo = true;
-			Service =  S3Service.uploadAudio(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`);
-		}
-		GeolocationService.getCoordLoc(req.param('lat'), req.param('long')).then(function(loc) {
+		var isVideo = req.param('isVideo');
+		var Service = isVideo === true
+			? S3Service.uploadVideo(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`)
+			: isVideo === 'audio'
+			? S3Service.uploadAudio(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`)
+			: S3Service.upload(req.param('img') || '', `${req.param('title')}_${new Date().valueOf()}`);
+		GeolocationService.getCoordLoc(req.param('lat') || 0, req.param('long') || 0).then(function(loc) {
 			Service
 			.then(function(url) {
 				Post.create({
@@ -38,7 +30,7 @@ module.exports = {
 					title: req.param('title'),
 					body: req.param('body'),
 					author: req.param('author'),
-					time:  new Date().toUTCString().replace("GMT", "").trim(),
+					time: new Date().toUTCString().replace("GMT", "").trim(),
 					loc: loc,
 					lat: req.param('lat') || 0,
 					long: req.param('long') || 0,
@@ -47,7 +39,7 @@ module.exports = {
 					from_twitter: req.param('from_twitter') || false,
 					urls: req.param('urls'),
 					featured: req.param('featured') || false,
-					hasVideo: isVideo,
+					hasVideo: isVideo ? true : false,
 				})
 				.exec(function (err, post){
 				  if (err) { 
@@ -79,7 +71,7 @@ module.exports = {
 					  	    return;
 					  	  }
 					  	  if (count) {
-					  	  	User.update(req.param('author'), {postCount: count++})
+					  	  	User.update(req.param('author'), {postCount: count})
 					  	  	.exec(function(err, updated){
 					  	  	  if (err) {
 					  	  	  	console.log(err);
@@ -145,7 +137,7 @@ module.exports = {
 					  	    return;
 					  	  }
 					  	  if (count) {
-					  	  	User.update(req.param('author'), {postCount: count++})
+					  	  	User.update(req.param('author'), {postCount: count})
 					  	  	.exec(function(err, updated){
 					  	  	  if (err) {
 					  	  	  	console.log(err);
